@@ -1,7 +1,7 @@
 // After you deploy the Python Worker, replace this with your Worker URL,
 // e.g. "https://bmi-api.your-subdomain.workers.dev"
 // For local testing (pywrangler dev) it runs on port 8787.
-const API_URL = "http://localhost:8787";
+const API_URL = "https://bmi-api.gabrielsapetin9-766.workers.dev";
 
 const form = document.getElementById("bmi-form");
 const btn = document.getElementById("submit-btn");
