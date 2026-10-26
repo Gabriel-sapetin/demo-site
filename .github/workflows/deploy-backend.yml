@@ -21,14 +21,7 @@ jobs:
 
       - uses: astral-sh/setup-uv@v5
 
-      - name: Deploy with pywrangler
-        run: |
-          TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
-          if [[ "$TOKEN" == cfk_* ]]; then
-            export CLOUDFLARE_API_KEY="$TOKEN"
-            export CLOUDFLARE_EMAIL="${{ secrets.CLOUDFLARE_EMAIL || 'gabrielsapetin9@gmail.com' }}"
-          else
-            export CLOUDFLARE_API_TOKEN="$TOKEN"
-          fi
-          export CLOUDFLARE_ACCOUNT_ID="${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
-          uv run pywrangler deploy
+      - run: uv run pywrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
