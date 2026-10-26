@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BMI Checker – Deployment Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>BMI Checker</h1>
+      <p class="sub">A small demo site: static frontend on Cloudflare Pages, Python API on Cloudflare Workers.</p>
+      <p id="status" class="status" role="status">Checking API…</p>
+    </header>
+
+    <section class="panel">
+      <form id="bmi-form" novalidate>
+        <label for="weight">Weight (kg)</label>
+        <input id="weight" name="weight" type="number" step="0.1" min="1" inputmode="decimal" placeholder="e.g. 60" required>
+
+        <label for="height">Height (cm)</label>
+        <input id="height" name="height" type="number" step="0.1" min="1" inputmode="decimal" placeholder="e.g. 165" required>
+
+        <button type="submit" id="submit-btn">Calculate BMI</button>
+        <p id="error" class="error" role="alert" hidden></p>
+      </form>
+
+      <div id="result" class="result" hidden>
+        <p class="bmi-value"><span id="bmi">0</span> <small>kg/m²</small></p>
+        <p id="category" class="category"></p>
+
+        <div class="gauge" aria-hidden="true">
+          <div class="bar"></div>
+          <div id="marker" class="marker"></div>
+        </div>
+        <div class="ticks" aria-hidden="true">
+          <span>Under</span><span>Normal</span><span>Over</span><span>Obese</span>
+        </div>
+        <p class="note">Calculated by the Python API. For demonstration only, not medical advice.</p>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

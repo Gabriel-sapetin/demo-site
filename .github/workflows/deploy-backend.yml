@@ -1,0 +1,34 @@
+name: Deploy backend
+
+on:
+  push:
+    branches: [main]
+    paths: ["backend/**"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Deploy with pywrangler
+        run: |
+          TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          if [[ "$TOKEN" == cfk_* ]]; then
+            export CLOUDFLARE_API_KEY="$TOKEN"
+            export CLOUDFLARE_EMAIL="${{ secrets.CLOUDFLARE_EMAIL || 'gabrielsapetin9@gmail.com' }}"
+          else
+            export CLOUDFLARE_API_TOKEN="$TOKEN"
+          fi
+          export CLOUDFLARE_ACCOUNT_ID="${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
+          uv run pywrangler deploy
